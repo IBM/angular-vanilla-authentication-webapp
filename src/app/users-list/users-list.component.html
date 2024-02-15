@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2 col-sm-6 offset-sm-3">
+        <div class="card auth">
+            <div class="card-body auth-card">
+                <h4> Users List </h4>
+                <table class="my-table">
+                    <thead class="my-table headers">
+                      <tr>
+                        <th *ngFor="let column of header">{{column.config}}</th>
+                      </tr>
+                    </thead>
+                    <tbody class="my-table body">
+                      <tr my-active *ngFor="let row of userData; index as rowIndex">
+                        <td>{{row['_id']}}</td>
+                        <td>{{row['firstName']}}</td>
+                        <td>{{row['lastName']}}</td>
+                        <td>{{row['email']}}</td>
+                        <td>{{row['role']}}</td>
+                        <td><button *ngIf="row['email'] == loggedInEmail" class="btn btn-my" style="margin: 5px;" (click)="onPasswordChange()">Change Password</button></td>
+                      </tr>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <a routerLink="/dashboard" style="margin: 10px;" class="btn btn-link">Back To Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

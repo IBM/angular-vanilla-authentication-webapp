@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4 col-sm-6 offset-sm-3">
+        <div class="card auth">
+            <div class="card-body auth-card">
+                <div class="auth-avatar">
+                    <img src="https://pluspng.com/img-png/user-png-icon-account-avatar-human-male-man-men-people-person-download-svg-download-png-edit-icon-512.png" alt="user" class="user-image">
+                </div>
+                <!-- <h4> Register </h4> -->
+                <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval['firstName']['errors'] }" placeholder="First Name"/>
+                        <div *ngIf="submitted && fval['firstName']['errors']" class="invalid-feedback">
+                            <div *ngIf="fval['firstName']['errors']['required']">First Name is required</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval['email']['errors'] }" placeholder="Email"/>
+                        <div *ngIf="submitted && fval['email']['errors']" class="invalid-feedback">
+                            <div *ngIf="fval['email']['errors']['required']">Email is required</div>
+                            <div *ngIf="fval['email']['errors']['email']">Enter valid email address</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval['password']['errors'] }" placeholder="Password"/>
+                        <div *ngIf="submitted && fval['password']['errors']" class="invalid-feedback">
+                            <div *ngIf="fval['password']['errors']['required']">Password is required</div>
+                            <div *ngIf="fval['password']['errors']['minlength']">Password must be at least 6 characters</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Admin</label>
+                        <input
+                            style="margin: 10px;"
+                            type="checkbox"
+                            [checked]="roleChecked"
+                            (change)="roleChecked = !roleChecked"/>
+                    </div>
+                    
+
+                    <br/>
+                    <label for="securityQuestion">In case you forget your password</label>
+                    <div class="form-group">
+                        <select class="form-control" name="question1" id="1" formControlName="selectedQueId1"  (change)="onFirstSelect($event)">
+                            <option value="" hidden disabled>Security Question 1</option>
+                            <option *ngFor="let c of firstQuestionSet" value="{{ c.id }}">{{ c.question }}</option>
+                        </select>
+                        <div style="margin-top: 8px;">
+                            <input type="text" formControlName="answer1" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval['answer1']['errors'] }" placeholder="Your answer"/>
+                            <div *ngIf="submitted && fval['answer1']['errors']" class="invalid-feedback">
+                                <div *ngIf="fval['answer1']['errors']['required']">Answer is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 25px;">
+                        <select class="form-control" name="question2" id="2" formControlName="selectedQueId2"  (change)="onSecondSelect($event)">
+                            <option value="" hidden disabled>Security Question 2</option>
+                            <option *ngFor="let s of secondQuestionSet" value="{{ s.id }}">{{ s.question }}</option>
+                        </select>
+                        
+                        <div style="margin-top: 8px;">
+                            <input type="text" formControlName="answer2" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval['answer2']['errors'] }" placeholder="Your answer"/>
+                            <div *ngIf="submitted && fval['answer2']['errors'] && fval['selectedQueId2']['errors']" class="invalid-feedback">
+                                <div *ngIf="fval['answer2']['errors']['required'] && fval['selectedQueId2']['errors']['required']">Answer is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button [disabled]='loading' class="btn btn-my">
+                        <span *ngIf='loading' class="spinner-border spinner-border-sm mr-1"></span>
+                            Register
+                        </button>
+                        <a routerLink="/" class="btn btn-link">Login to continue</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
